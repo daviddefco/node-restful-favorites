@@ -43,7 +43,7 @@ class App {
   //       message: 'Hello World!'
   //     });
   //   });
-    this.express.use('/favourites', Routes);
+    this.express.use('/', Routes);
   //   //  this.express.use('/api/v1/heroes', HeroRouter);
   }
 }

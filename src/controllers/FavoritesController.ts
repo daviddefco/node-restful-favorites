@@ -18,17 +18,32 @@ export class FavoritesController {
     saveFavorite(req: Request, res: Response, next: NextFunction) {
         let params = req.body
         res.status(200).json({ 
+            operation: 'save',
             favorite: params 
         })
     }       
     updateFavorite(req: Request, res: Response, next: NextFunction) {
-        let favouriteId = req.params.id
+        let params = req.body
+        res.status(200).json({ 
+            operation: 'update',
+            favorite: params 
+        })
+
     }       
     deleteFavorite(req: Request, res: Response, next: NextFunction) {
-        let favouriteId = req.params.id
+        let params = req.body
+        res.status(200).json({
+            operation: 'delete', 
+            favorite: params 
+        })
+        
     }       
     getAllFavorites(req: Request, res: Response, next: NextFunction) {
-        let favouriteId = req.params.id
+        let params = req.body
+        res.status(200).json({ 
+            favorite: params 
+        })
+        
     }       
 }
 

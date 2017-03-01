@@ -11,9 +11,11 @@ export class Routes {
 
     configureRoutes() {
         this.router.get('/', FavoritesController.test)
-        this.router.get('/favourite/:id', FavoritesController.getFavorite)
-        this.router.post('/favourite/:id', FavoritesController.getFavorite)
-        this.router.post('/save', FavoritesController.saveFavorite)
+        this.router.get('/favorite/:id', FavoritesController.getFavorite)
+        this.router.get('/favorite', FavoritesController.getAllFavorites)
+        this.router.post('/favorite', FavoritesController.saveFavorite)
+        this.router.put('/favorite', FavoritesController.updateFavorite)
+        this.router.delete('/favorite', FavoritesController.deleteFavorite)
     }
 }
 
