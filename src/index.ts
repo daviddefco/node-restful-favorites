@@ -1,17 +1,33 @@
-import * as http from 'http';
-import * as debug from 'debug';
+import * as http from 'http'
+import * as debug from 'debug'
+import * as mongoose from 'mongoose'
+import * as bluebird from 'bluebird'
 
-import App from './App';
+import App from './App'
 
-debug('ts-express:server');
+debug('ts-express:server')
 
 const port = normalizePort(process.env.PORT || 3000);
 App.set('port', port);
-
 const server = http.createServer(App);
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+
+// Definition of bluebird as promise library. Default's library is deprecated
+// Must be done before connecting
+(<any>mongoose).Promise = bluebird
+
+// MongoDB Connection
+let connectionUri = 'mongodb://localhost:27017/nodejs-restful-favorites'
+let options = { promiseLibrary: bluebird };
+let db = mongoose.connect(connectionUri, options, (err) => {
+  if(err) {
+    throw err
+  } else {
+    console.log("Connection to MongoDB successfully created")
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+  }
+})
 
 function normalizePort(val: number|string): number|string|boolean {
   let port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
@@ -40,5 +56,5 @@ function onError(error: NodeJS.ErrnoException): void {
 function onListening(): void {
   let addr = server.address();
   let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
-  debug(`Listening on ${bind}`);
+  console.log(`Listening on ${bind}`);
 }
