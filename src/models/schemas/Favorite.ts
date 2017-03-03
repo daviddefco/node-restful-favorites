@@ -4,7 +4,7 @@ import * as bluebird from 'bluebird'
 
 (<any>mongoose).Promise = bluebird
 
-interface IFavoriteModel extends IFavorite, mongoose.Document {
+export interface IFavoriteModel extends IFavorite, mongoose.Document {
 
 }
 
