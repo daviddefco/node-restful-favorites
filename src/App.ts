@@ -4,6 +4,7 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
 import Routes from './routes/Routes'
+import * as HeadersHandler from './middleware/HeadersHandler'
 
 // import HeroRouter from './routes/HeroRouter';
 
@@ -25,6 +26,10 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+    // This middleware is built to deal with CORS and resource access policies
+    // to avoid problems when dealing with PUT and DELETE requests from 
+    // AJAX calls
+    this.express.use(HeadersHandler.setHeadersHandler)
   }
 
   // Configure API endpoints.
