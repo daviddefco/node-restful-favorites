@@ -59,21 +59,28 @@ export class FavoritesController {
         })
     }       
 
-    saveFavorite(req: Request, res: Response, next: NextFunction) {        
+    saveFavorite(req: Request, res: Response, next: NextFunction) {           delete req.body._id
         let favorite = new Favorite( req.body )
-        favorite.save()
-        .then((savedFavorite: IFavoriteModel) => {
-            res.status(200).json({ 
-                operation: 'save',
-                result: savedFavorite 
+        if(favorite.title != null && favorite.url != null) {
+            favorite.save()
+            .then((savedFavorite: IFavoriteModel) => {
+                res.status(200).json({ 
+                    operation: 'save',
+                    result: savedFavorite 
+                })
             })
-        })
-        .catch((err) => {
+            .catch((err) => {
+                res.status(500).json({
+                    operaton: 'save',
+                    error: err
+                })                        
+            })
+        } else {
             res.status(500).json({
                 operaton: 'save',
-                error: err
-            })                        
-        })
+                error: 'REgister has no title or url defined'
+            })                                    
+        }           
     }     
 
     updateFavorite(req: Request, res: Response, next: NextFunction) {

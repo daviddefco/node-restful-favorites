@@ -5,7 +5,6 @@ import * as bluebird from 'bluebird'
 (<any>mongoose).Promise = bluebird
 
 export interface IFavoriteModel extends IFavorite, mongoose.Document {
-
 }
 
 var favoriteSchema: mongoose.Schema = new mongoose.Schema ({
